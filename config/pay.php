@@ -1,6 +1,16 @@
 <?php
 /**
  * @link https://learnku.com/courses/laravel-shop/5.8/alipay-to-pay/4279
+ * 支付宝沙箱地址  @link https://openhome.alipay.com/platform/appDaily.htm?tab=account
+ * 购物测试账号
+ * 买家账号tpipwy8465@sandbox.com
+登录密码111111
+支付密码111111
+用户名称沙箱环境
+证件类型身份证(IDENTITY_CARD)
+证件号码974538195106215471
+账户余额
+99999.00充值
  */
 return [
     'alipay' => [
