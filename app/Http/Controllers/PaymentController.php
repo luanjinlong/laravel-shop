@@ -24,11 +24,12 @@ class PaymentController extends Controller
         return app('alipay')->web([
             'out_trade_no' => $order->no, // 订单编号，需保证在商户端不重复
             'total_amount' => $order->total_amount, // 订单金额，单位元，支持小数点后两位
-            'subject'      => '支付 Laravel Shop 的订单：'.$order->no, // 订单标题
+            'subject' => '支付 ' . config('app.name') . ' 的订单：' . $order->no, // 订单标题
         ]);
     }
 
-    public function payByWechat(Order $order, Request $request) {
+    public function payByWechat(Order $order, Request $request)
+    {
         $this->authorize('own', $order);
         if ($order->paid_at || $order->closed) {
             throw new InvalidRequestException('订单状态不正确');
@@ -37,8 +38,8 @@ class PaymentController extends Controller
         // 之前是直接返回，现在把返回值放到一个变量里
         $wechatOrder = app('wechat_pay')->scan([
             'out_trade_no' => $order->no,
-            'total_fee'    => $order->total_amount * 100,
-            'body'         => '支付 Laravel Shop 的订单：'.$order->no,
+            'total_fee' => $order->total_amount * 100,
+            'body' => '支付 Laravel Shop 的订单：' . $order->no,
         ]);
         // 把要转换的字符串作为 QrCode 的构造函数参数
         $qrCode = new QrCode($wechatOrder->code_url);
@@ -61,10 +62,10 @@ class PaymentController extends Controller
     public function alipayNotify()
     {
         // 校验输入参数
-        $data  = app('alipay')->verify();
+        $data = app('alipay')->verify();
         // 如果订单状态不是成功或者结束，则不走后续的逻辑
         // 所有交易状态：https://docs.open.alipay.com/59/103672
-        if(!in_array($data->trade_status, ['TRADE_SUCCESS', 'TRADE_FINISHED'])) {
+        if (!in_array($data->trade_status, ['TRADE_SUCCESS', 'TRADE_FINISHED'])) {
             return app('alipay')->success();
         }
         // $data->out_trade_no 拿到订单流水号，并在数据库中查询
@@ -80,9 +81,9 @@ class PaymentController extends Controller
         }
 
         $order->update([
-            'paid_at'        => Carbon::now(), // 支付时间
+            'paid_at' => Carbon::now(), // 支付时间
             'payment_method' => 'alipay', // 支付方式
-            'payment_no'     => $data->trade_no, // 支付宝订单号
+            'payment_no' => $data->trade_no, // 支付宝订单号
         ]);
         $this->afterPaid($order);
 
@@ -92,7 +93,7 @@ class PaymentController extends Controller
     public function wechatNotify()
     {
         // 校验回调参数是否正确
-        $data  = app('wechat_pay')->verify();
+        $data = app('wechat_pay')->verify();
         // 找到对应的订单
         $order = Order::where('no', $data->out_trade_no)->first();
         // 订单不存在则告知微信支付
@@ -107,9 +108,9 @@ class PaymentController extends Controller
 
         // 将订单标记为已支付
         $order->update([
-            'paid_at'        => Carbon::now(),
+            'paid_at' => Carbon::now(),
             'payment_method' => 'wechat',
-            'payment_no'     => $data->transaction_id,
+            'payment_no' => $data->transaction_id,
         ]);
         $this->afterPaid($order);
 
@@ -123,7 +124,7 @@ class PaymentController extends Controller
         $data = app('wechat_pay')->verify(null, true);
 
         // 没有找到对应的订单，原则上不可能发生，保证代码健壮性
-        if(!$order = Order::where('no', $data['out_trade_no'])->first()) {
+        if (!$order = Order::where('no', $data['out_trade_no'])->first()) {
             return $failXml;
         }
 
