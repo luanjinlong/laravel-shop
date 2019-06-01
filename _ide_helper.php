@@ -2251,7 +2251,7 @@ namespace Illuminate\Support\Facades {
     class Blade {
         
         /**
-         * Compile the view at the given path.
+         * Compile the views at the given path.
          *
          * @param string $path
          * @return void 
@@ -2459,7 +2459,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the path to the compiled version of a view.
+         * Get the path to the compiled version of a views.
          *
          * @param string $path
          * @return string 
@@ -2473,7 +2473,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Determine if the view at the given path is expired.
+         * Determine if the views at the given path is expired.
          *
          * @param string $path
          * @return bool 
@@ -6771,7 +6771,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Render the given message as a view.
+         * Render the given message as a views.
          *
          * @param string|array $view
          * @param array $data
@@ -6785,7 +6785,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Send a new message using a view.
+         * Send a new message using a views.
          *
          * @param string|array|\Illuminate\Contracts\Mail\Mailable $view
          * @param array $data
@@ -6900,7 +6900,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the view factory instance.
+         * Get the views factory instance.
          *
          * @return \Illuminate\Contracts\View\Factory 
          * @static 
@@ -10396,7 +10396,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Create a new response for a given view.
+         * Create a new response for a given views.
          *
          * @param string $view
          * @param array $data
@@ -10781,7 +10781,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a new route that returns a view.
+         * Register a new route that returns a views.
          *
          * @param string $uri
          * @param string $view
@@ -13727,7 +13727,7 @@ namespace Illuminate\Support\Facades {
     class View {
         
         /**
-         * Get the evaluated view contents for the given view.
+         * Get the evaluated views contents for the given views.
          *
          * @param string $path
          * @param \Illuminate\Contracts\Support\Arrayable|array $data
@@ -13742,7 +13742,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the evaluated view contents for the given view.
+         * Get the evaluated views contents for the given views.
          *
          * @param string $view
          * @param \Illuminate\Contracts\Support\Arrayable|array $data
@@ -13757,7 +13757,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the first view that actually exists from the given list.
+         * Get the first views that actually exists from the given list.
          *
          * @param array $views
          * @param \Illuminate\Contracts\Support\Arrayable|array $data
@@ -13773,7 +13773,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the rendered content of the view based on a given condition.
+         * Get the rendered content of the views based on a given condition.
          *
          * @param bool $condition
          * @param string $view
@@ -13805,7 +13805,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Determine if a given view exists.
+         * Determine if a given views exists.
          *
          * @param string $view
          * @return bool 
@@ -13818,7 +13818,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the appropriate view engine for the given path.
+         * Get the appropriate views engine for the given path.
          *
          * @param string $path
          * @return \Illuminate\Contracts\View\Engine 
@@ -13882,7 +13882,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Add a location to the array of view locations.
+         * Add a location to the array of views locations.
          *
          * @param string $location
          * @return void 
@@ -13937,7 +13937,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a valid view extension and its engine.
+         * Register a valid views extension and its engine.
          *
          * @param string $extension
          * @param string $engine
@@ -14000,7 +14000,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Get the view finder instance.
+         * Get the views finder instance.
          *
          * @return \Illuminate\View\ViewFinderInterface 
          * @static 
@@ -14012,7 +14012,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Set the view finder instance.
+         * Set the views finder instance.
          *
          * @param \Illuminate\View\ViewFinderInterface $finder
          * @return void 
@@ -14204,7 +14204,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a view creator event.
+         * Register a views creator event.
          *
          * @param array|string $views
          * @param \Closure|string $callback
@@ -14218,7 +14218,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register multiple view composers via an array.
+         * Register multiple views composers via an array.
          *
          * @param array $composers
          * @return array 
@@ -14231,7 +14231,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a view composer event.
+         * Register a views composer event.
          *
          * @param array|string $views
          * @param \Closure|string $callback
@@ -14245,7 +14245,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Call the composer for a given view.
+         * Call the composer for a given views.
          *
          * @param \Illuminate\Contracts\View\View $view
          * @return void 
@@ -14258,7 +14258,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Call the creator for a given view.
+         * Call the creator for a given views.
          *
          * @param \Illuminate\Contracts\View\View $view
          * @return void 
