@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+    'host' => env('MAIL_HOST', 'smtp.qq.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'port' => env('MAIL_PORT', 587),
+    'port' => env('MAIL_PORT', 25),
 
     /*
     |--------------------------------------------------------------------------
@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => env('MAIL_FROM_ADDRESS', '646448149@qq.com'),
+        'name' => env('MAIL_FROM_NAME', 'shop'),
     ],
 
     /*
@@ -68,7 +68,7 @@ return [
     | Here you may specify the encryption protocol that should be used when
     | the application send e-mail messages. A sensible default using the
     | transport layer security protocol should provide great security.
-    |
+    |   kizguwybxhbabbcc
     */
 
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),

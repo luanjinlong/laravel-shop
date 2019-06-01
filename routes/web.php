@@ -3,6 +3,7 @@
 Route::redirect('/', '/products')->name('root');
 Route::get('products', 'ProductsController@index')->name('products.index');
 
+// Laravel 自带了一个名为 verified 的中间件，如果一个未验证邮箱的用户尝试访问一个配置了 verified 中间件的路由，Laravel 就会提示该用户邮箱未激活。
 Auth::routes(['verify' => true]);
 
 // auth 中间件代表需要登录，verified中间件代表需要经过邮箱验证
