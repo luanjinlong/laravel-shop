@@ -64,6 +64,12 @@
                 </div>
               </div>
               <div class="form-group row">
+                <label class="col-form-label col-sm-3 text-md-right">提示</label>
+                <div class="col-sm-9 col-md-7">
+                  <p class="btn-warning">如果选择现金交易，需要找零，请在备注说明。谢谢!</p>
+                </div>
+              </div>
+              <div class="form-group row">
                 <label class="col-form-label col-sm-3 text-md-right">备注</label>
                 <div class="col-sm-9 col-md-7">
                   <textarea name="remark" class="form-control" rows="3"></textarea>

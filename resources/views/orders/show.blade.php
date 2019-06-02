@@ -108,24 +108,34 @@
               @if(!$order->paid_at && !$order->closed)
                 <div class="payment-buttons">
                   <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
-                  <button class="btn btn-sm btn-success" id='btn-wechat'>微信支付</button>
-                  <button class="btn btn-sm btn-warning" id='btn-wechat'>货到付款</button>
+                  <a class="btn btn-sm btn-success" href="{{ route('payment.cash', ['order' => $order->id]) }}">货到付款</a>
+                  {{--<button class="btn btn-sm btn-success" id='btn-wechat'>微信支付</button>--}}
                 </div>
               @endif
               <!-- 支付按钮结束 -->
-              <!-- 如果订单的发货状态为已发货则展示确认收货按钮 -->
-              @if($order->ship_status === \App\Models\Order::SHIP_STATUS_DELIVERED)
-                <div class="receive-button">
-                  <!-- 将原本的表单替换成下面这个按钮 -->
-                  <button type="button" id="btn-receive" class="btn btn-sm btn-success">确认收货</button>
-                </div>
-              @endif
+
+                {{-- 如果提交了订单，要么未收货，要么已经收货了 --}}
+            @if($order->paid_at)
+                <!-- 如果订单的发货状态为已发货则展示确认收货按钮 -->
+                    @if($order->ship_status === \App\Models\Order::SHIP_STATUS_RECEIVED)
+                        <div class="receive-button">
+                            <!-- 将原本的表单替换成下面这个按钮 -->
+                            <button type="button"  class="btn btn-sm btn-info">已收货</button>
+                        </div>
+                    @else
+                        <div class="receive-button">
+                            <!-- 将原本的表单替换成下面这个按钮 -->
+                            <button type="button" id="btn-receive" class="btn btn-sm btn-success">确认收货</button>
+                        </div>
+                    @endif
+            @endif
+
               <!-- 订单已支付，且退款状态是未退款时展示申请退款按钮 -->
-              @if($order->paid_at && $order->refund_status === \App\Models\Order::REFUND_STATUS_PENDING)
-                <div class="refund-button">
-                  <button class="btn btn-sm btn-danger" id="btn-apply-refund">申请退款</button>
-                </div>
-              @endif
+              {{--@if($order->paid_at && $order->refund_status === \App\Models\Order::REFUND_STATUS_PENDING)--}}
+                {{--<div class="refund-button">--}}
+                  {{--<button class="btn btn-sm btn-danger" id="btn-apply-refund">申请退款</button>--}}
+                {{--</div>--}}
+              {{--@endif--}}
             </div>
           </div>
         </div>

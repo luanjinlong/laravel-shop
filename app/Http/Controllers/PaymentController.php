@@ -146,6 +146,25 @@ class PaymentController extends Controller
         return app('wechat_pay')->success();
     }
 
+    /**
+     *  货到付款
+     */
+    public function payByCash(Order $order)
+    {
+        // $data->out_trade_no 拿到订单流水号，并在数据库中查询
+        // 正常来说不太可能出现支付了一笔不存在的订单，这个判断只是加强系统健壮性。
+        if (!$order) {
+            return 'fail';
+        }
+        $now = Carbon::now();
+        $order->update([
+            'paid_at' => Carbon::now(), // 支付时间
+            'payment_method' => 'cash', // 支付方式
+            'payment_no' => $now->timestamp . rand(1111, 9999), // 现金订单号
+        ]);
+        return redirect()->route('orders.show',['order'=>$order->id]);
+    }
+
     protected function afterPaid(Order $order)
     {
         event(new OrderPaid($order));
