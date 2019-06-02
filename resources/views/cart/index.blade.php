@@ -70,17 +70,17 @@
                 </div>
               </div>
               <!-- 优惠码开始 -->
-              <div class="form-group row">
-                <label class="col-form-label col-sm-3 text-md-right">优惠码</label>
-                <div class="col-sm-4">
-                  <input type="text" class="form-control" name="coupon_code">
-                  <span class="form-text text-muted" id="coupon_desc"></span>
-                </div>
-                <div class="col-sm-3">
-                  <button type="button" class="btn btn-success" id="btn-check-coupon">检查</button>
-                  <button type="button" class="btn btn-danger" style="display: none;" id="btn-cancel-coupon">取消</button>
-                </div>
-              </div>
+              {{--<div class="form-group row">--}}
+                {{--<label class="col-form-label col-sm-3 text-md-right">优惠码</label>--}}
+                {{--<div class="col-sm-4">--}}
+                  {{--<input type="text" class="form-control" name="coupon_code">--}}
+                  {{--<span class="form-text text-muted" id="coupon_desc"></span>--}}
+                {{--</div>--}}
+                {{--<div class="col-sm-3">--}}
+                  {{--<button type="button" class="btn btn-success" id="btn-check-coupon">检查</button>--}}
+                  {{--<button type="button" class="btn btn-danger" style="display: none;" id="btn-cancel-coupon">取消</button>--}}
+                {{--</div>--}}
+              {{--</div>--}}
               <!-- 优惠码结束 -->
               <div class="form-group">
                 <div class="offset-sm-3 col-sm-3">

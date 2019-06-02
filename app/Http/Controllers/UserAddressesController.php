@@ -23,11 +23,11 @@ class UserAddressesController extends Controller
     public function store(UserAddressRequest $request)
     {
         $request->user()->addresses()->create($request->only([
-            'province',
-            'city',
-            'district',
+//            'province',
+//            'city',
+//            'district',
             'address',
-            'zip',
+//            'zip',
             'contact_name',
             'contact_phone',
         ]));
@@ -47,11 +47,11 @@ class UserAddressesController extends Controller
         $this->authorize('own', $user_address);
 
         $user_address->update($request->only([
-            'province',
-            'city',
-            'district',
+//            'province',
+//            'city',
+//            'district',
             'address',
-            'zip',
+//            'zip',
             'contact_name',
             'contact_phone',
         ]));

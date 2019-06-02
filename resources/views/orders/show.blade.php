@@ -46,69 +46,70 @@
               <div class="line"><div class="line-label">订单备注：</div><div class="line-value">{{ $order->remark ?: '-' }}</div></div>
               <div class="line"><div class="line-label">订单编号：</div><div class="line-value">{{ $order->no }}</div></div>
               <!-- 输出物流状态 -->
-              <div class="line">
-                <div class="line-label">物流状态：</div>
-                <div class="line-value">{{ \App\Models\Order::$shipStatusMap[$order->ship_status] }}</div>
-              </div>
+              {{--<div class="line">--}}
+                {{--<div class="line-label">物流状态：</div>--}}
+                {{--<div class="line-value">{{ \App\Models\Order::$shipStatusMap[$order->ship_status] }}</div>--}}
+              {{--</div>--}}
               <!-- 如果有物流信息则展示 -->
-              @if($order->ship_data)
-                <div class="line">
-                  <div class="line-label">物流信息：</div>
-                  <div class="line-value">{{ $order->ship_data['express_company'] }} {{ $order->ship_data['express_no'] }}</div>
-                </div>
-              @endif
+              {{--@if($order->ship_data)--}}
+                {{--<div class="line">--}}
+                  {{--<div class="line-label">物流信息：</div>--}}
+                  {{--<div class="line-value">{{ $order->ship_data['express_company'] }} {{ $order->ship_data['express_no'] }}</div>--}}
+                {{--</div>--}}
+              {{--@endif--}}
               <!-- 订单已支付，且退款状态不是未退款时展示退款信息 -->
-              @if($order->paid_at && $order->refund_status !== \App\Models\Order::REFUND_STATUS_PENDING)
-                <div class="line">
-                  <div class="line-label">退款状态：</div>
-                  <div class="line-value">{{ \App\Models\Order::$refundStatusMap[$order->refund_status] }}</div>
-                </div>
-                <div class="line">
-                  <div class="line-label">退款理由：</div>
-                  <div class="line-value">{{ $order->extra['refund_reason'] }}</div>
-                </div>
-              @endif
+              {{--@if($order->paid_at && $order->refund_status !== \App\Models\Order::REFUND_STATUS_PENDING)--}}
+                {{--<div class="line">--}}
+                  {{--<div class="line-label">退款状态：</div>--}}
+                  {{--<div class="line-value">{{ \App\Models\Order::$refundStatusMap[$order->refund_status] }}</div>--}}
+                {{--</div>--}}
+                {{--<div class="line">--}}
+                  {{--<div class="line-label">退款理由：</div>--}}
+                  {{--<div class="line-value">{{ $order->extra['refund_reason'] }}</div>--}}
+                {{--</div>--}}
+              {{--@endif--}}
             </div>
             <div class="order-summary text-right">
               <!-- 展示优惠信息开始 -->
-              @if($order->couponCode)
-                <div class="text-primary">
-                  <span>优惠信息：</span>
-                  <div class="value">{{ $order->couponCode->description }}</div>
-                </div>
-              @endif
+              {{--@if($order->couponCode)--}}
+                {{--<div class="text-primary">--}}
+                  {{--<span>优惠信息：</span>--}}
+                  {{--<div class="value">{{ $order->couponCode->description }}</div>--}}
+                {{--</div>--}}
+              {{--@endif--}}
               <!-- 展示优惠信息结束 -->
               <div class="total-amount">
                 <span>订单总价：</span>
                 <div class="value">￥{{ $order->total_amount }}</div>
               </div>
-              <div>
-                <span>订单状态：</span>
-                <div class="value">
-                  @if($order->paid_at)
-                    @if($order->refund_status === \App\Models\Order::REFUND_STATUS_PENDING)
-                      已支付
-                    @else
-                      {{ \App\Models\Order::$refundStatusMap[$order->refund_status] }}
-                    @endif
-                  @elseif($order->closed)
-                    已关闭
-                  @else
-                    未支付
-                  @endif
-                </div>
-              </div>
-              @if(isset($order->extra['refund_disagree_reason']))
-                <div>
-                  <span>拒绝退款理由：</span>
-                  <div class="value">{{ $order->extra['refund_disagree_reason'] }}</div>
-                </div>
-              @endif
+              {{--<div>--}}
+                {{--<span>订单状态：</span>--}}
+                {{--<div class="value">--}}
+                  {{--@if($order->paid_at)--}}
+                    {{--@if($order->refund_status === \App\Models\Order::REFUND_STATUS_PENDING)--}}
+                      {{--已支付--}}
+                    {{--@else--}}
+                      {{--{{ \App\Models\Order::$refundStatusMap[$order->refund_status] }}--}}
+                    {{--@endif--}}
+                  {{--@elseif($order->closed)--}}
+                    {{--已关闭--}}
+                  {{--@else--}}
+                    {{--未支付--}}
+                  {{--@endif--}}
+                {{--</div>--}}
+              {{--</div>--}}
+              {{--@if(isset($order->extra['refund_disagree_reason']))--}}
+                {{--<div>--}}
+                  {{--<span>拒绝退款理由：</span>--}}
+                  {{--<div class="value">{{ $order->extra['refund_disagree_reason'] }}</div>--}}
+                {{--</div>--}}
+              {{--@endif--}}
               <!-- 支付按钮开始 -->
               @if(!$order->paid_at && !$order->closed)
                 <div class="payment-buttons">
                   <a class="btn btn-primary btn-sm" href="{{ route('payment.alipay', ['order' => $order->id]) }}">支付宝支付</a>
                   <button class="btn btn-sm btn-success" id='btn-wechat'>微信支付</button>
+                  <button class="btn btn-sm btn-warning" id='btn-wechat'>货到付款</button>
                 </div>
               @endif
               <!-- 支付按钮结束 -->
