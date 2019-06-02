@@ -2,13 +2,11 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Encore\Admin\Controllers\HasResourceActions;
-use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
-use Encore\Admin\Show;
 
 class UsersController extends Controller
 {
@@ -24,8 +22,15 @@ class UsersController extends Controller
     protected function grid()
     {
         $grid = new Grid(new User);
+        $grid->filter(function ($filter) {
+            $filter->equal('name', '用户名');
+//            $filter->equal('no', '订单号');
+//            $filter->equal('ship_status', '物流状态')->select(['pending' => '未发货', 'received' => '已收货']);
+        });
+        $grid->model()->orderBy('id', 'desc');
 
         // 创建一个列名为 ID 的列，内容是用户的 id 字段
+//        $grid->id('ID')->sortable();
         $grid->id('ID');
 
         // 创建一个列名为 用户名 的列，内容是用户的 name 字段。下面的 email() 和 created_at() 同理

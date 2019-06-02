@@ -2,13 +2,12 @@
 
 namespace App\Admin\Controllers;
 
-use App\Models\Product;
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Form;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
-use Encore\Admin\Show;
 
 class ProductsController extends Controller
 {
@@ -63,7 +62,14 @@ class ProductsController extends Controller
     {
         $grid = new Grid(new Product);
 
-        $grid->id('ID')->sortable();
+        $grid->filter(function ($filter) {
+            $filter->equal('title', '商品名');
+            $filter->equal('on_sale', '是否上架')->select([0 => '否', 1 => '是']);
+        });
+        $grid->model()->orderBy('id', 'desc');
+
+//        $grid->id('ID')->sortable();
+        $grid->id('ID');
         $grid->title('商品名称');
         $grid->on_sale('已上架')->display(function ($value) {
             return $value ? '是' : '否';
@@ -106,7 +112,7 @@ class ProductsController extends Controller
         $form->editor('description', '商品描述')->rules('required');
 
         // 创建一组单选框
-        $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('0');
+        $form->radio('on_sale', '上架')->options(['1' => '是', '0' => '否'])->default('0');
 
         // 直接添加一对多的关联模型
         $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {

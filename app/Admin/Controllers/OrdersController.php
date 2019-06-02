@@ -4,9 +4,9 @@ namespace App\Admin\Controllers;
 
 use App\Exceptions\InternalException;
 use App\Exceptions\InvalidRequestException;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\HandleRefundRequest;
 use App\Models\Order;
-use App\Http\Controllers\Controller;
 use Encore\Admin\Controllers\HasResourceActions;
 use Encore\Admin\Grid;
 use Encore\Admin\Layout\Content;
@@ -44,17 +44,17 @@ class OrdersController extends Controller
         // Laravel 5.5 之后 validate 方法可以返回校验过的值
         $data = $this->validate($request, [
             'express_company' => ['required'],
-            'express_no'      => ['required'],
+            'express_no' => ['required'],
         ], [], [
             'express_company' => '物流公司',
-            'express_no'      => '物流单号',
+            'express_no' => '物流单号',
         ]);
         // 将订单发货状态改为已发货，并存入物流信息
         $order->update([
             'ship_status' => Order::SHIP_STATUS_DELIVERED,
             // 我们在 Order 模型的 $casts 属性里指明了 ship_data 是一个数组
             // 因此这里可以直接把数组传过去
-            'ship_data'   => $data,
+            'ship_data' => $data,
         ]);
 
         // 返回上一页
@@ -84,7 +84,7 @@ class OrdersController extends Controller
             // 将订单的退款状态改为未退款
             $order->update([
                 'refund_status' => Order::REFUND_STATUS_PENDING,
-                'extra'         => $extra,
+                'extra' => $extra,
             ]);
         }
 
@@ -94,6 +94,11 @@ class OrdersController extends Controller
     protected function grid()
     {
         $grid = new Grid(new Order);
+        $grid->filter(function ($filter) {
+            $filter->equal('paid_at', '支付时间');
+            $filter->equal('no', '订单号');
+            $filter->equal('ship_status', '物流状态')->select(['pending' => '未发货', 'received' => '已收货']);
+        });
 
         // 只展示已支付的订单，并且默认按支付时间倒序排序
         $grid->model()->whereNotNull('paid_at')->orderBy('paid_at', 'desc');
@@ -103,7 +108,7 @@ class OrdersController extends Controller
         $grid->column('user.name', '买家');
         $grid->total_amount('总金额')->sortable();
         $grid->paid_at('支付时间')->sortable();
-        $grid->ship_status('物流')->display(function($value) {
+        $grid->ship_status('物流')->display(function ($value) {
             return Order::$shipStatusMap[$value];
         });
 //        $grid->refund_status('退款状态')->display(function($value) {
@@ -177,7 +182,7 @@ class OrdersController extends Controller
                 break;
             default:
                 // 原则上不可能出现，这个只是为了代码健壮性
-                throw new InternalException('未知订单支付方式：'.$order->payment_method);
+                throw new InternalException('未知订单支付方式：' . $order->payment_method);
                 break;
         }
     }
