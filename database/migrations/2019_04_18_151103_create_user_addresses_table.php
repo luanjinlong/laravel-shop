@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUserAddressesTable extends Migration
 {
@@ -17,11 +17,11 @@ class CreateUserAddressesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->string('province');
-            $table->string('city');
-            $table->string('district');
-            $table->string('address');
-            $table->unsignedInteger('zip');
+            $table->string('province')->default('');
+            $table->string('city')->default('');
+            $table->string('district')->default('');
+            $table->string('address')->default('');
+            $table->unsignedInteger('zip')->default(0);
             $table->string('contact_name');
             $table->string('contact_phone');
             $table->dateTime('last_used_at')->nullable();
