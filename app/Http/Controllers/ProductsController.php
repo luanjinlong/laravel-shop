@@ -16,7 +16,7 @@ class ProductsController extends Controller
         // 判断是否有提交 search 参数，如果有就赋值给 $search 变量
         // search 参数用来模糊搜索商品
         if ($search = $request->input('search', '')) {
-            $like = '%'.$search.'%';
+            $like = '%' . $search . '%';
             // 模糊搜索商品标题、商品详情、SKU 标题、SKU描述
             $builder->where(function ($query) use ($like) {
                 $query->where('title', 'like', $like)
@@ -36,7 +36,7 @@ class ProductsController extends Controller
                 // 如果字符串的开头是这 3 个字符串之一，说明是一个合法的排序值
                 if (in_array($m[1], ['price', 'sold_count', 'rating'])) {
                     // 根据传入的排序值来构造排序参数
-                    $builder->orderBy($m[1], $m[2]);
+                    $builder->orderBy($m[1], $m[2])->orderByDesc('id');
                 }
             }
         }
@@ -45,9 +45,9 @@ class ProductsController extends Controller
 
         return view('products.index', [
             'products' => $products,
-            'filters'  => [
+            'filters' => [
                 'search' => $search,
-                'order'  => $order,
+                'order' => $order,
             ],
         ]);
     }
@@ -60,18 +60,18 @@ class ProductsController extends Controller
 
         $favored = false;
         // 用户未登录时返回的是 null，已登录时返回的是对应的用户对象
-        if($user = $request->user()) {
+        if ($user = $request->user()) {
             // 从当前用户已收藏的商品中搜索 id 为当前商品 id 的商品
             // boolval() 函数用于把值转为布尔值
             $favored = boolval($user->favoriteProducts()->find($product->id));
         }
 
         $reviews = OrderItem::query()
-            ->with(['order.user', 'productSku']) // 预先加载关联关系
+            ->with(['order.user', 'productSku'])// 预先加载关联关系
             ->where('product_id', $product->id)
-            ->whereNotNull('reviewed_at') // 筛选出已评价的
-            ->orderBy('reviewed_at', 'desc') // 按评价时间倒序
-            ->limit(10) // 取出 10 条
+            ->whereNotNull('reviewed_at')// 筛选出已评价的
+            ->orderBy('reviewed_at', 'desc')// 按评价时间倒序
+            ->limit(10)// 取出 10 条
             ->get();
 
         // 最后别忘了注入到模板中
