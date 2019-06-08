@@ -36,9 +36,11 @@ class ProductsController extends Controller
                 // 如果字符串的开头是这 3 个字符串之一，说明是一个合法的排序值
                 if (in_array($m[1], ['price', 'sold_count', 'rating'])) {
                     // 根据传入的排序值来构造排序参数
-                    $builder->orderBy($m[1], $m[2])->orderByDesc('id');
+                    $builder->orderBy($m[1], $m[2]);
                 }
             }
+        } else {
+            $builder = $builder->orderByDesc('id');
         }
 
         $products = $builder->paginate(16);
