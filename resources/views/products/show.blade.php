@@ -171,7 +171,7 @@
                             swal({content: $(html)[0], icon: 'error'})
                         } else if (error.response.status === 403) {
                             // 原本这个是按照报错处理的  代码在 EnsureEmailIsVerified 类文件中
-                            swal('邮箱没有验证，请先验证邮箱', 'error');
+                            swal('邮箱没有验证，请先验证邮箱', '', 'error');
                         } else {
                             // 其他情况应该是系统挂了
                             swal('系统错误', '', 'error');
