@@ -7,6 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', config('app.name')) - {{ config('app.name') }}</title>
+    <style>
+        .col-xs-6{
+            max-width:50px;
+        }
+    </style>
     <!-- 样式 -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
