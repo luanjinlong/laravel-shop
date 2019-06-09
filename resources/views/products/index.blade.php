@@ -31,7 +31,7 @@
           <!-- 筛选组件结束 -->
           <div class="row products-list">
             @foreach($products as $product)
-              <div class="col-3 product-item">
+              <div class="col-3 col-xl-6 product-item">
                 <div class="product-content">
                   <div class="top">
                     <div class="img">
